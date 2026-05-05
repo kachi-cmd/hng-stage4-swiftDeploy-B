@@ -1,0 +1,20 @@
+services:
+  image: swift-deploy-1-node:latest
+  port: 3000
+  mode: stable
+  version: "1.0.0"
+  restart_policy: unless-stopped
+  log_volume: app-logs
+
+nginx:
+  image: nginx:latest
+  port: 8080
+  https_port: 443
+  proxy_timeout: 30
+  ssl_cert: /etc/nginx/certs/fullchain.pem
+  ssl_key: /etc/nginx/certs/privkey.pem
+  domain: kchiii.duckdns.org
+
+network:
+  name: swiftdeploy-net
+  driver_type: bridge
